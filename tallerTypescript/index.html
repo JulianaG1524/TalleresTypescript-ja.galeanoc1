@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Taller 1</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+<body>
+    <div class="container">
+        <div class="row m">
+            <div class="col card p-6">
+                <h1>Juliana Andrea Galeano Caicedo</h1>
+                <img class="img-fluid max-width: 100% height: auto rounded-circle" src="./avatar.png" alt="Avatar" >
+                <h2>Datos Personales</h2>
+                <table class="table" >
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Cédula</th>
+                            <th>Edad</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                         </tr>
+                    </thead>
+                    <tbody id="students">
+                    </tbody>   
+                </table>
+            </div>
+            <div class="col card p-6">
+                <h2>Cursos Actuales</h2>
+                <form style="margin:10px;">
+                    <div class="form-row">
+                      <div class="col">
+                          <input type="text" class="form-control" id="search-box" placeholder="Filtrar por nombre">
+                      </div>
+                      <div class="col">
+                          <button type="button" id="button-filterByName" class="btn btn-success">Aplicar</button>
+                      </div>
+                    </div>
+                </form>
+                <table class="table">
+                    <thead class="thead-dark">
+                       <tr>
+                          <th>Curso</th>
+                          <th>Profesor</th>
+                          <th>Créditos</th>
+                       </tr>
+                    </thead>
+                    <tbody id="courses">
+                    </tbody>   
+                    </table>
+                </div>
+            </div>
+        </div>  
+        <script type="module" src="./scripts/course.js" ></script>
+        <script type="module" src="./scripts/dataCourses.js" ></script>
+        <script type="module" src="./scripts/main.js"></script>
+</body>
+</html>
