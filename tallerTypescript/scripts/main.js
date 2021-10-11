@@ -4,6 +4,8 @@ var coursesTbody = document.getElementById('courses');
 var studentsTbody = document.getElementById('students');
 var btnfilterByName = document.getElementById("button-filterByName");
 var inputSearchBox = document.getElementById("search-box");
+var inputMinimumBox = document.getElementById("minimum-box");
+var inputMaximumBox = document.getElementById("maximum-box");
 var totalCreditElm = document.getElementById("total-credits");
 btnfilterByName.onclick = function () { return applyFilterByName(); };
 renderCoursesInTable(dataCourses);
@@ -27,15 +29,30 @@ function renderStudentsInTable(students) {
 }
 function applyFilterByName() {
     var text = inputSearchBox.value;
+    var minimum = inputMinimumBox.valueAsNumber;
+    var maximum = inputMaximumBox.valueAsNumber;
+    if (isNaN(minimum)) {
+        minimum = minimum || 0;
+    }
+    if (isNaN(maximum)) {
+        maximum = maximum || 5;
+    }
     text = (text == null) ? '' : text;
     clearCoursesInTable();
-    var coursesFiltered = searchCourseByName(text, dataCourses);
+    var coursesFiltered = searchCourseByNameMinMax(text, minimum, maximum, dataCourses);
     renderCoursesInTable(coursesFiltered);
 }
-function searchCourseByName(nameKey, courses) {
-    return nameKey === '' ? dataCourses : courses.filter(function (c) {
+function searchCourseByNameMinMax(nameKey, minimum, maximum, courses) {
+    var coursesFiltered = nameKey === '' ? dataCourses : courses.filter(function (c) {
         return c.name.match(nameKey);
     });
+    var coursesFilteredmin = coursesFiltered.filter(function (c) {
+        return c.credits >= minimum;
+    });
+    var coursesFilteredmax = coursesFilteredmin.filter(function (c) {
+        return c.credits <= maximum;
+    });
+    return coursesFilteredmax;
 }
 function getTotalCredits(courses) {
     var totalCredits = 0;

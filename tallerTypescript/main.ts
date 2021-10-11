@@ -10,6 +10,8 @@ let coursesTbody: HTMLElement = document.getElementById('courses')!;
 let studentsTbody: HTMLElement = document.getElementById('students')!;
 const btnfilterByName: HTMLElement = document.getElementById("button-filterByName")!;
 const inputSearchBox: HTMLInputElement = <HTMLInputElement> document.getElementById("search-box")!;
+const inputMinimumBox: HTMLInputElement = <HTMLInputElement> document.getElementById("minimum-box")!;
+const inputMaximumBox: HTMLInputElement = <HTMLInputElement> document.getElementById("maximum-box")!;
 const totalCreditElm: HTMLElement = document.getElementById("total-credits")!;
 
 
@@ -47,15 +49,29 @@ function renderStudentsInTable(students: Student[]): void {
 
 function applyFilterByName() { 
   let text = inputSearchBox.value;
+  let minimum = inputMinimumBox.valueAsNumber;
+  let maximum = inputMaximumBox.valueAsNumber;
+  if (isNaN(minimum)){
+    minimum = minimum || 0
+  }
+  if (isNaN(maximum)){
+    maximum = maximum || 5
+  }
   text = (text == null) ? '' : text;
   clearCoursesInTable();
-  let coursesFiltered: Course[] = searchCourseByName(text, dataCourses);
+  let coursesFiltered: Course[] = searchCourseByNameMinMax(text, minimum, maximum, dataCourses);
   renderCoursesInTable(coursesFiltered);
 }
 
-function searchCourseByName(nameKey: string, courses: Course[]) {
-  return nameKey === '' ? dataCourses : courses.filter( c => 
+
+function searchCourseByNameMinMax(nameKey: string,minimum: number,maximum: number, courses: Course[]) {
+  let coursesFiltered = nameKey === '' ? dataCourses : courses.filter( c => 
     c.name.match(nameKey));
+  let coursesFilteredmin = coursesFiltered.filter( c => 
+    c.credits >= minimum);
+  let coursesFilteredmax = coursesFilteredmin.filter( c => 
+    c.credits <= maximum);
+  return coursesFilteredmax;
 }
 
 
